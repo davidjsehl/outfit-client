@@ -40,9 +40,9 @@ export default class Wardrobe extends Component {
                 uploadResult = await uploadResponse.json()
             }
         } catch (err) {
-            console.log('errrorrrrrr, responseeeeee', { uploadResponse });
-            console.log({ uploadResult });
-            console.log({ e });
+            // console.log('errrorrrrrr, responseeeeee', { uploadResponse });
+            // console.log({ uploadResult });
+            // console.log({ e });
             alert('Upload failed, sorry :(');
         } finally {
             this.setState({ uploading: false })
