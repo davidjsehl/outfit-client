@@ -1,5 +1,13 @@
 import axios from 'axios'
+const Clarifai = require('clarifai');
+import { CLARIFAI_KEY } from 'react-native-dotenv'
 
+
+const clarifai = new Clarifai.App({
+    apiKey: CLARIFAI_KEY
+});
+
+process.nextTick = setImmediate // RN polyfill
 
 //ACTION TYPES
 
@@ -24,7 +32,7 @@ const uploadSuccess = (uploadResult) => {
 //THUNKS
 
 export const addItemThunk = (image) => async dispatch => {
-    let uploadResponse, uploadResult;
+    let uploadResponse, uploadResult, photoInfo;
     try {
         dispatch({ type: UPLOAD_START })
         if (!image.cancelled) {
@@ -36,9 +44,32 @@ export const addItemThunk = (image) => async dispatch => {
         alert('Upload failed, sorry :(');
     } finally {
         dispatch(uploadSuccess(uploadResult))
+        photoInfo = await dispatch(getItemInfo(uploadResult.location))
+        console.log('photoo, infoooooooo', photoInfo)
     }
 
 }
+
+const getItemInfo = (url) => async dispatch => {
+    clarifai.models.predict(Clarifai.GENERAL_MODEL, url)
+    .then(res => {
+        let data = res.outputs[0].data.concepts
+        console.log('clarifaiiii responseeee', data)
+        let category = data.reduce((prev, current) => {
+            return (prev.value > current.value) ? prev : current
+        }).name
+        // Math.max.apply(Math, data.map(el => el.value))
+
+        console.log('categoorryyyyy', category)
+        let newItem = {
+            category
+        }
+        // console.log('new ittttttemmmmm', newItem)
+
+
+    })
+}
+
 
 const uploadImageAsync = async (uri) => {
 
