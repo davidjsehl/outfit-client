@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "clarifai": "^2.6.0",
     "expo": "^25.0.0",
     "react": "16.2.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
@@ -12,5 +13,8 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "react-native-dotenv": "^0.1.1"
   }
 }

@@ -13,7 +13,7 @@ export class Wardrobe extends Component {
     //         aspect: [4, 3]
     //     })
     //     console.log('imaggeeee', pickedImage)
-    //     this._handlePickedImage(pickedImage)
+    //     this.props.addItem(pickedImage);
     // }
 
     _pickImage = async () => {
@@ -23,6 +23,7 @@ export class Wardrobe extends Component {
         });
 
         this.props.addItem(pickedImage);
+        // this.props.getPhotoInfo(pickedImage.uri)
     };
 
     render () {
