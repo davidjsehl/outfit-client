@@ -70,15 +70,19 @@ const getItemInfo = (url) => async dispatch => {
             //eventually wardrobeId
         }
 
-        // dispatch(addItemToDatabase(newItem))
-        console.log('newitemmmmmm', newItem)
+        dispatch(addItemToDatabase(newItem))
+        dispatch({ type: ITEM_ADDED })
+        // console.log('newitemmmmmm', newItem)
 
     })
 }
 
-// const addItemToDatabase = (item) => async dispatch => {
-
-// }
+const addItemToDatabase = (item) => async dispatch => {
+    console.log('herrrreeeeeeeee')
+    return axios.post('http://localhost:1313/api/items', item)
+    .then(success => console.log('succcessss', success))
+    // fetch('/api/items', item)
+}
 
 
 const uploadImageAsync = async (uri) => {
