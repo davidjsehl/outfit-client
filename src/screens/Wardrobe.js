@@ -4,13 +4,14 @@ import { ImagePicker } from 'expo'
 import { connect } from 'react-redux'
 import axios from 'axios';
 import { addItemThunk } from '../reducers/item'
-import { getWardrobeThunk } from '../reducers/wardrobe'
+import { getWardrobeThunk, getWardrobeItemsThunk } from '../reducers/wardrobe'
 
 
 export class Wardrobe extends Component {
 
     componentDidMount() {
-        this.props.getWardrobe(userId = 1)
+        // this.props.getWardrobe(userId = 1)
+        this.props.getWardrobeItems(wardrobeId = 1)
     }
 
     // _takePhoto = async () => {
@@ -54,6 +55,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         getWardrobe: (userId = 1) => {
             dispatch(getWardrobeThunk(userId = 1))
+        },
+        getWardrobeItems: (wardrobeId = 1) => {
+            dispatch(getWardrobeItemsThunk(wardrobeId = 1))
         }
     }
 }
