@@ -63,16 +63,18 @@ const getItemInfo = (url) => async dispatch => {
         let color = colorData.reduce((prev, current) => {
             return (prev.value > current.value) ? prev : current
         })
+        console.log('urrlrlllllll', url)
 
         let newItem = {
             category,
-            color
+            color,
+            imageUrl: url
             //eventually wardrobeId
         }
 
         dispatch(addItemToDatabase(newItem))
         dispatch({ type: ITEM_ADDED })
-        // console.log('newitemmmmmm', newItem)
+        console.log('newitemmmmmm', newItem)
 
     })
 }
