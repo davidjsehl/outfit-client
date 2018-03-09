@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, TouchableOpacity, Image } from 'react-native'
 import { ImagePicker } from 'expo'
 import { connect } from 'react-redux'
-import axios from 'axios';
+import axios from 'axios'
+import { CardSection } from './common/CardSection'
+import { Card } from './common/Card'
 import { addItemThunk } from '../reducers/item'
 import { getWardrobeThunk, getWardrobeItemsThunk } from '../reducers/wardrobe'
-
+import WardrobeDrawer from './screenComponents/WardrobeDrawer'
 
 export class Wardrobe extends Component {
+    constructor(props) {
+        super(props)
+    }
 
-    componentDidMount() {
+    componentWillMount() {
         // this.props.getWardrobe(userId = 1)
         this.props.getWardrobeItems(wardrobeId = 1)
     }
@@ -29,22 +34,74 @@ export class Wardrobe extends Component {
         });
 
         this.props.addItem(pickedImage);
-        // this.props.getPhotoInfo(pickedImage.uri)
-    };
+    }
+
 
     render () {
-        console.log('this.propssssssssss', this.props)
+        const { wardrobe } = this.props
+        console.log('propppppsssss', this.props)
+        let categoryArray = wardrobe.length && wardrobe.map(item => item.category)
+        let categories = [...new Set(categoryArray)]
+        console.log('categggoooirressssss', categories)
         return (
             <View>
-                <Button title='submit' onPress={this._pickImage}/> 
+                <View>
+                    <Card>
+                        <CardSection>
+                            <View>
+                                <Text style={styles.title}>Wardrobe</Text>
+                            </View>
+                            <View>
+                                <TouchableOpacity onPress={this._pickImage}>
+                                    <Image style={styles.addImageBtn} source={require('../../assets/addItem.png')} />
+                                </TouchableOpacity>
+                            </View>
+                        </CardSection>
+                    </Card>
+                </View>
+                <View>
+                    {
+                        categories && categories.map(category => {
+                            return (
+                                <WardrobeDrawer key={category} category={category} />
+                            )
+                        })
+                    }
+                </View>
+
             </View>
         )
     }
 }
 
+const styles = {
+    title: {
+        fontSize: 50
+    },
+    titleContainer: {
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        flex: .75
+    },
+    addImageBtn: {
+        height: 50,
+        width: 50
+    },
+    addImageBtnContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10,
+        marginRight: 10
+    },
+    drawerContainer: {
+
+    }
+}
+
+
 const mapStateToProps = (state) => {
     return {
-        wardrobe: state.wardrobe
+        wardrobe: state.wardrobe || []
     }
 }
 
