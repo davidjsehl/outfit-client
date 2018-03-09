@@ -51,24 +51,34 @@ export const addItemThunk = (image) => async dispatch => {
 }
 
 const getItemInfo = (url) => async dispatch => {
-    clarifai.models.predict(Clarifai.GENERAL_MODEL, url)
+    url = "https://samples.clarifai.com/apparel.jpeg"
+    clarifai.workflow.predict('category-color', url)
     .then(res => {
-        let data = res.outputs[0].data.concepts
-        console.log('clarifaiiii responseeee', data)
-        let category = data.reduce((prev, current) => {
+        let categoryData = res.results[0].outputs[0].data.concepts
+        let colorData = res.results[0].outputs[1].data.colors
+        // console.log('clarifaiiii responseeee', res)
+        let category = categoryData.reduce((prev, current) => {
             return (prev.value > current.value) ? prev : current
         }).name
-        // Math.max.apply(Math, data.map(el => el.value))
+        let color = colorData.reduce((prev, current) => {
+            return (prev.value > current.value) ? prev : current
+        })
 
-        console.log('categoorryyyyy', category)
         let newItem = {
-            category
+            category,
+            color
+            //eventually wardrobeId
         }
-        // console.log('new ittttttemmmmm', newItem)
 
+        // dispatch(addItemToDatabase(newItem))
+        console.log('newitemmmmmm', newItem)
 
     })
 }
+
+// const addItemToDatabase = (item) => async dispatch => {
+
+// }
 
 
 const uploadImageAsync = async (uri) => {
