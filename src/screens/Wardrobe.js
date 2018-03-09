@@ -4,9 +4,14 @@ import { ImagePicker } from 'expo'
 import { connect } from 'react-redux'
 import axios from 'axios';
 import { addItemThunk } from '../reducers/item'
+import { getWardrobeThunk } from '../reducers/wardrobe'
 
 
 export class Wardrobe extends Component {
+
+    componentDidMount() {
+        this.props.getWardrobe(userId = 1)
+    }
 
     // _takePhoto = async () => {
     //     let pickedImage = await ImagePicker.launchCameraAsync({
@@ -27,6 +32,7 @@ export class Wardrobe extends Component {
     };
 
     render () {
+        console.log('this.propssssssssss', this.props)
         return (
             <View>
                 <Button title='submit' onPress={this._pickImage}/> 
@@ -35,12 +41,21 @@ export class Wardrobe extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        wardrobe: state.wardrobe
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         addItem: (pickedImage) => {
             dispatch(addItemThunk(pickedImage))
+        },
+        getWardrobe: (userId = 1) => {
+            dispatch(getWardrobeThunk(userId = 1))
         }
     }
 }
 
-export default connect(null, mapDispatchToProps)(Wardrobe)
+export default connect(mapStateToProps, mapDispatchToProps)(Wardrobe)

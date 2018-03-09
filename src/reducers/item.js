@@ -19,7 +19,8 @@ const GOT_ITEM_INFO = 'GOT_ITEM_INFO'
 
 const initialState = {
     image: null,
-    loading: false
+    loading: false,
+    newItem: null
 }
 
 
@@ -27,6 +28,11 @@ const initialState = {
 
 const uploadSuccess = (uploadResult) => {
     return { type: UPLOAD_SUCCESS, uploadResult }
+}
+
+const itemAdded = (item) => {
+    console.log('itemmmmmmmmmm', item)
+    return { type: ITEM_ADDED, item }
 }
 
 //THUNKS
@@ -63,7 +69,6 @@ const getItemInfo = (url) => async dispatch => {
         let color = colorData.reduce((prev, current) => {
             return (prev.value > current.value) ? prev : current
         })
-        console.log('urrlrlllllll', url)
 
         let newItem = {
             category,
@@ -73,17 +78,16 @@ const getItemInfo = (url) => async dispatch => {
         }
 
         dispatch(addItemToDatabase(newItem))
-        dispatch({ type: ITEM_ADDED })
-        console.log('newitemmmmmm', newItem)
 
     })
 }
 
 const addItemToDatabase = (item) => async dispatch => {
-    console.log('herrrreeeeeeeee')
     return axios.post('http://localhost:1313/api/items', item)
-    .then(success => console.log('succcessss', success))
-    // fetch('/api/items', item)
+    .then(async res => {
+        let newItem = await res.data
+        dispatch(itemAdded(newItem))
+    })
 }
 
 
@@ -124,6 +128,8 @@ export default (state = initialState, action) => {
             return { ...state, image: action.uploadResult, loading: false }
         case UPLOAD_FAIL:
             return { ...state, loading: false }
+        case ITEM_ADDED:
+            return { ...state, newItem: action.item }
         default: 
             return state
     }
