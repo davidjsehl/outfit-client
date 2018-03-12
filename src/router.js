@@ -15,15 +15,17 @@ export const LoggedOut = StackNavigator({
     SignUp: {
         screen: SignUp,
         navigationOptions: {
-            title: 'Sign Up',
-            headerStyle
+            // title: 'Sign Up',
+            // headerStyle
+            header: null
         }
     },
     Login: {
         screen: Login,
         navigationOptions: {
-            title: 'Log In',
-            headerStyle
+            // title: 'Log In',
+            // headerStyle
+            header: null
         }
     }
 }, {

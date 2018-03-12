@@ -59,7 +59,10 @@ export class SignUp extends Component {
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.screenContainer}>
                 <View style={styles.loginContainer}>
-                    <Image />
+                    <View style={styles.headerContainer}>
+                        <Text style={styles.titleText}>outfit</Text>
+                        <Text style={styles.subtitle}>the style network</Text>
+                    </View>
                 </View>
                 <View style={styles.formContainer}>
                     <View style={styles.container}>
@@ -119,12 +122,17 @@ const styles = {
     loginContainer: {
         alignItems: 'center',
         flexGrow: 1,
+        // justifyContent: 'center'
+    },
+    headerContainer: {
+        marginTop: 40,
+        display: 'flex',
+        alignItems: 'center',
         justifyContent: 'center'
     },
-    logo: {
-        position: 'absolute',
-        width: 300,
-        height: 300
+    titleText: {
+        fontSize: 30,
+        color: '#775839',
     },
     title: {
         color: "#FFF",
