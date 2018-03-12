@@ -37,10 +37,6 @@ export default class App extends React.Component {
         <Layout />
         {/* <Wardrobe /> */}
       </Provider>
-      // <View style={styles.container}>
-      //   <Text>Open up App.js to start working on your app!</Text>
-        // <SignedOut />
-      // </View>
     );
   }
 }

@@ -8,6 +8,7 @@ import { Card } from './common/Card'
 import { addItemThunk } from '../reducers/item'
 import { getWardrobeThunk, getWardrobeItemsThunk } from '../reducers/wardrobe'
 import WardrobeDrawer from './screenComponents/WardrobeDrawer'
+import { logoutUserThunk } from '../reducers/auth'
 
 export class Wardrobe extends Component {
     constructor(props) {
@@ -26,6 +27,10 @@ export class Wardrobe extends Component {
     //     console.log('imaggeeee', pickedImage)
     //     this.props.addItem(pickedImage);
     // }
+    
+    handlePress() {
+        this.props.logoutUser(this.props.navigation)
+    }
 
     _pickImage = async () => {
         let pickedImage = await ImagePicker.launchImageLibraryAsync({
@@ -68,6 +73,7 @@ export class Wardrobe extends Component {
                         })
                     }
                 </View>
+                <Button title="submit" onPress={this.handlePress.bind(this)} />
 
             </View>
         )
@@ -115,6 +121,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         getWardrobeItems: (wardrobeId = 1) => {
             dispatch(getWardrobeItemsThunk(wardrobeId = 1))
+        },
+        logoutUser: (navigation) => {
+            dispatch(logoutUserThunk(navigation))
         }
     }
 }

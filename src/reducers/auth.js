@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { AsyncStorage } from 'react-native'
 
 //ACTION TYPES
 
@@ -12,6 +13,7 @@ const SIGN_UP_USER_FAIL = 'SIGN_UP_USER_FAIL';
 const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCES';
 const CREATE_USER_FAIL = 'CREATE_USER_FAIL';
 const GET_USER = 'GET_USER'
+const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS'
 
 //INITIAL STATE
 
@@ -67,8 +69,11 @@ export const me = () => dispatch => {
 export const loginUserThunk = (credentials, navigation) => dispatch => {
     dispatch({ type: LOGIN_USER_START })
     axios.post('http://localhost:1313/auth/login', credentials)
-    .then(res => {
+    .then(async res => {
+        let userToken = res.data.id.toString()
         dispatch(loginUserSuccess(res.data))
+        console.log('useerrrrrrrrr tokkkennnn', userToken)
+        await AsyncStorage.setItem('user-token', userToken);
         getUserAndRedirect(res.data, navigation, dispatch)
         dispatch(getUser(res.data))
     })
@@ -88,8 +93,14 @@ export const signUpUserThunk = (credentials, navigation) => dispatch => {
     })
 }
 
-export const logoutUserThunk = () => {
-
+export const logoutUserThunk = (navigation) => dispatch => {
+    axios.post('http://localhost:1313/auth/logout')
+    .then(async res => {
+        await AsyncStorage.removeItem('user-token')
+        dispatch({ type: LOG_OUT_SUCCESS })
+    })
+    .then(() => navigation.navigate('LoggedOut'))
+    .catch(err => console.error('Logging out was unsuccesful', err));
 }
 
 export const createUser = (user) => {
@@ -123,6 +134,10 @@ export default (state = initialState, action) => {
             return { ...state, loading: false, currentUser: action.user, error: '' }
         case GET_USER:
             return action.user
+        case LOG_OUT_SUCCESS: 
+            return {
+                ...initialState,
+            }
         default:
             return state
     }

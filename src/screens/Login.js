@@ -66,14 +66,14 @@ export class Login extends Component {
                             keyboardType='email-address'
                             returnKeyType="next"
                             placeholder='Email'
-                            placeholderTextColor='rgba(225,225,225,0.7)'
+                            placeholderTextColor='rgba(140,107,75,0.7)'
                             value={this.props.email}
                             onChangeText={(text) => this.props.authFormUpdate({ prop: 'email', value: text })}
                         />
 
                         <TextInput style={styles.input}
                             placeholder='Password'
-                            placeholderTextColor='rgba(225,225,225,0.7)'
+                            placeholderTextColor='rgba(140,107,75,0.7)'
                             value={this.props.password}
                             onChangeText={(text) => this.props.authFormUpdate({ prop: 'password', value: text })}
                             secureTextEntry
@@ -97,7 +97,7 @@ export class Login extends Component {
 const styles = {
     screenContainer: {
         flex: 1,
-        backgroundColor: '#4D5966',
+        backgroundColor: '#f4eee8',
     },
     loginContainer: {
         alignItems: 'center',
@@ -121,13 +121,13 @@ const styles = {
     },
     input: {
         height: 40,
-        backgroundColor: 'rgba(225,225,225,0.2)',
+        backgroundColor: 'rgba(140,107,75,0.2)',
         marginBottom: 10,
         padding: 10,
         color: '#fff'
     },
     buttonContainer: {
-        backgroundColor: '#2980b6',
+        backgroundColor: '#775839',
         paddingVertical: 15
     },
     buttonText: {
@@ -136,13 +136,21 @@ const styles = {
         fontWeight: '700'
     },
     loginButton: {
-        backgroundColor: '#2980b6',
+        backgroundColor: '#775839',
         color: '#fff'
     },
     errorTextStyle: {
         color: 'red',
         fontSize: 20,
         alignSelf: 'center'
+    },
+    signUpText: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        paddingTop: 5,
+        paddingBottom: 5,
+        fontSize: 14,
+        color: 'rgba(140,107,75,0.7)'
     }
 }
 
