@@ -3,7 +3,6 @@ import { View, Text, Image, TouchableOpacity, ImageBackground } from 'react-nati
 
 
 const WardrobeDrawer = (props) => {
-    console.log('draweerrrrrrr props', props)
     return (
         <TouchableOpacity>
             <View 
@@ -38,7 +37,8 @@ const styles = {
         alignItems: 'center',
     },
     categoryName: {
-        color: 'white'
+        color: 'white',
+        fontSize: 25
     }
 }
 

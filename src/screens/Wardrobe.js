@@ -38,11 +38,11 @@ export class Wardrobe extends Component {
 
 
     render () {
+        
         const { wardrobe } = this.props
-        console.log('propppppsssss', this.props)
         let categoryArray = wardrobe.length && wardrobe.map(item => item.category)
         let categories = [...new Set(categoryArray)]
-        console.log('categggoooirressssss', categories)
+
         return (
             <View>
                 <View>
