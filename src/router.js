@@ -1,3 +1,4 @@
+import React from 'react'
 import { StackNavigator, TabNavigator } from 'react-navigation'
 import { Platform, StatusBar } from 'react-native'
 import { FontAwesome } from 'react-native-vector-icons';

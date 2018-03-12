@@ -7,20 +7,89 @@ import {
     KeyboardAvoidingView, 
     StatusBar, 
     TouchableOpacity, 
-    Image 
+    Image,
+    ActivityIndicator
 } from 'react-native'
+import { connect } from 'react-redux'
+import { authFormUpdate, loginUserThunk } from '../reducers/auth' 
 
-export default class Login extends Component {
+export class Login extends Component {
+
+    onButtonPress(navigation) {
+        const { email, password } = this.props;
+        this.props.loginUser({
+            email,
+            password
+        }, navigation)
+        // .then(this.props.navigation.navigate('Main'))
+    }
+
+    renderError() {
+        if (this.props.error) {
+            return (
+                <View style={{ backgroundColor: '#4D5966' }}>
+                    <Text style={styles.errorTextStyle}>
+                        {this.props.error}
+                    </Text>
+                </View>
+            )
+        }
+    }
+
+    renderButton() {
+        if (this.props.loading) return <ActivityIndicator size='large' />
+        else {
+            return (
+                <TouchableOpacity style={styles.buttonContainer}
+                    onPress={() => this.onButtonPress(this.props.navigation)}
+                >
+                    <Text style={styles.buttonText}>LOGIN</Text>
+                </TouchableOpacity>
+            )
+        }
+    }
+
     render () {
         return (
-            // <KeyboardAvoidingView>
-            //     <View>
-            //         <Image />
-            //     </View>
-            // </KeyboardAvoidingView>
-            <View>
-                <Text>THIS IS THE LOGIN SCREEN</Text>
-            </View>
+            <KeyboardAvoidingView behavior="padding" style={styles.screenContainer}>
+
+                <View style={styles.loginContainer}>
+                    {/* <Image style={styles.logo} source={require('../../public/logo.png')} /> */}
+
+                </View>
+                <View style={styles.formContainer}>
+                    <View style={styles.container}>
+                        <StatusBar barStyle="light-content" />
+                        <TextInput style={styles.input}
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            keyboardType='email-address'
+                            returnKeyType="next"
+                            placeholder='Email'
+                            placeholderTextColor='rgba(225,225,225,0.7)'
+                            value={this.props.email}
+                            onChangeText={(text) => this.props.authFormUpdate({ prop: 'email', value: text })}
+                        />
+
+                        <TextInput style={styles.input}
+                            placeholder='Password'
+                            placeholderTextColor='rgba(225,225,225,0.7)'
+                            value={this.props.password}
+                            onChangeText={(text) => this.props.authFormUpdate({ prop: 'password', value: text })}
+                            secureTextEntry
+                        />
+
+                        {this.renderError()}
+
+                        {this.renderButton()}
+
+                        <Text style={styles.signUpText}>Dont have an account?</Text>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('SignUpForm')}>
+                            <Text style={styles.buttonText}>SIGN UP</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -76,3 +145,26 @@ const styles = {
         alignSelf: 'center'
     }
 }
+
+const mapStateToProps = ({ auth }) => {
+    const { email, password, error, loading } = auth;
+    return {
+        email,
+        password,
+        error,
+        loading
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loginUser: (credentials, navigation) => {
+            dispatch(loginUserThunk(credentials, navigation))
+        },
+        authFormUpdate: ({ prop, value }) => {
+            dispatch(authFormUpdate({ prop, value }))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

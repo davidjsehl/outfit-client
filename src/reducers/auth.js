@@ -39,6 +39,14 @@ const loginUserFail = (user) => {
     return { type: LOGIN_USER_FAIL, user }
 }
 
+const signUpUserSuccess = (user) => {
+    return { type: SIGN_UP_USER_SUCCESS, user }
+}
+
+const signUpUserFail = () => {
+    return { type: SIGN_UP_USER_FAIL }
+}
+
 const userCreated = (user) => {
     return { type: CREATE_USER_SUCCESS, user }
 }
@@ -47,21 +55,47 @@ const getUser = user => ({ type: GET_USER, user })
 
 //THUNK CREATORS
 
-export const me = () => {
+export const me = () => dispatch => {
+    axios.get('http://localhost:1313/auth/me')
+    .then(res => {
+        dispatch(getUser(res.data))
+    })
+    .catch(err => console.error('Fetching current user failed', err));
 
 }
 
-export const loginUserThunk = () => {
-
+export const loginUserThunk = (credentials, navigation) => dispatch => {
+    dispatch({ type: LOGIN_USER_START })
+    axios.post('http://localhost:1313/auth/login', credentials)
+    .then(res => {
+        dispatch(loginUserSuccess(res.data))
+        getUserAndRedirect(res.data, navigation, dispatch)
+        dispatch(getUser(res.data))
+    })
 }
 
-export const signUpUserThunk = () => {
-
+export const signUpUserThunk = (credentials, navigation) => dispatch => {
+    dispatch({ type: SIGN_UP_USER_START })
+    axios.post('http://localhost:1313/auth/signup', credentials)
+    .then(res => {
+        dispatch(signUpUserSuccess(res.data))
+        getUserAndRedirect(res.data, navigation, dispatch)
+        dispatch(getUser(res.data))
+    })
+    .catch(error => {
+        dispatch(signUpUserFail())
+        navigation.navigate('SignedOut', { error: 'Authentication failed'})
+    })
 }
 
 export const logoutUserThunk = () => {
 
 }
+
+export const createUser = (user) => {
+
+}
+
 
 //REDUCER
 
@@ -72,7 +106,29 @@ export default (state = initialState, action) => {
                 ...state,
                 [action.payload.prop]: action.payload.value
             }
+        case SIGN_UP_USER_START:
+            return { ...state, loading: true, error: '' }
+        case SIGN_UP_USER_SUCCESS:
+            return { ...state, loading: false, currentUser: action.user, error: '' }
+        case SIGN_UP_USER_FAIL:
+            return {
+                ...state,
+                error: 'Authentication failed',
+                password: '',
+                loading: false
+            }
+        case LOGIN_USER_START: 
+            return { ...state, loading: true }
+        case LOGIN_USER_SUCCESS:
+            return { ...state, loading: false, currentUser: action.user, error: '' }
+        case GET_USER:
+            return action.user
         default:
             return state
     }
+}
+
+const getUserAndRedirect = (user, navigation, dispatch) => {
+    dispatch(getUser(user))
+    navigation.navigate('LoggedIn')
 }

@@ -7,12 +7,18 @@ import {
     KeyboardAvoidingView,
     StatusBar,
     TouchableOpacity,
-    Image
+    Image,
+    ActivityIndicator
 } from 'react-native'
 import { connect } from 'react-redux';
-import { authFormUpdate, loginUserThunk } from '../reducers/auth';
+import { authFormUpdate, signUpUserThunk } from '../reducers/auth';
 
 export class SignUp extends Component {
+    constructor(props) {
+        super(props)
+
+        this.onButtonPress = this.onButtonPress.bind(this)
+    }
 
     renderError() {
         if (this.props.error) {
@@ -26,12 +32,22 @@ export class SignUp extends Component {
         }
     }
 
+    onButtonPress(navigation) {
+        const { firstName, lastName, email, password } = this.props
+        this.props.signUpUser({
+            firstName, 
+            lastName,
+            email,
+            password
+        }, navigation)
+    }
+
     renderButton() {
-        if (this.props.loading) return <Spinner size='large' />
+        if (this.props.loading) return <ActivityIndicator size='large' />
         else {
             return (
                 <TouchableOpacity style={styles.buttonContainer}
-                // onPress={this.onButtonPress.bind(this)}
+                onPress={() => this.onButtonPress(this.props.navigation)}
                 >
                     <Text style={styles.buttonText}>SIGN UP</Text>
                 </TouchableOpacity>
@@ -40,7 +56,6 @@ export class SignUp extends Component {
     }
 
     render() {
-        console.log('proppssssssss', this.props)
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.screenContainer}>
                 <View style={styles.loginContainer}>
@@ -53,7 +68,7 @@ export class SignUp extends Component {
                             autoCorrect={false}
                             returnKeyType="next"
                             placeholder="First Name"
-                            placeholderTextColor="white"
+                            placeholderTextColor="rgba(140,107,75,0.7)"
                             value={this.props.firstName}
                             onChangeText={(text) => this.props.authFormUpdate({ prop: 'firstName', value: text })}
                         />
@@ -61,7 +76,7 @@ export class SignUp extends Component {
                             autoCorrect={false}
                             returnKeyType="next"
                             placeholder="Last Name"
-                            placeholderTextColor="white"
+                            placeholderTextColor="rgba(140,107,75,0.7)"
                             value={this.props.lastName}
                             onChangeText={(text) => this.props.authFormUpdate({ prop: 'lastName', value: text })}
                         />
@@ -69,7 +84,7 @@ export class SignUp extends Component {
                             autoCorrect={false}
                             returnKeyType="next"
                             placeholder="Email"
-                            placeholderTextColor="white"
+                            placeholderTextColor="rgba(140,107,75,0.7)"
                             value={this.props.email}
                             onChangeText={(text) => this.props.authFormUpdate({ prop: 'email', value: text })}
                         />
@@ -77,14 +92,15 @@ export class SignUp extends Component {
                             autoCorrect={false}
                             returnKeyType="next"
                             placeholder="Password"
-                            placeholderTextColor="white"
+                            placeholderTextColor="rgba(140,107,75,0.7)"
+                            secureTextEntry
                             value={this.props.password}
                             onChangeText={(text) => this.props.authFormUpdate({ prop: 'password', value: text })}
                         />
                         {this.renderError()}
                         {this.renderButton()}
                         <Text style={styles.loginText}>Already have an account?</Text>
-                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('SignUpForm')}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('Login')}>
                             <Text style={styles.buttonText}>LOG IN</Text>
                         </TouchableOpacity>
                     </View>
@@ -98,7 +114,7 @@ export class SignUp extends Component {
 const styles = {
     screenContainer: {
         flex: 1,
-        backgroundColor: '#4D5966',
+        backgroundColor: '#f4eee8',
     },
     loginContainer: {
         alignItems: 'center',
@@ -122,13 +138,13 @@ const styles = {
     },
     input: {
         height: 40,
-        backgroundColor: 'rgba(225,225,225,0.2)',
+        backgroundColor: 'rgba(140,107,75,0.2)',
         marginBottom: 10,
         padding: 10,
         color: '#fff'
     },
     buttonContainer: {
-        backgroundColor: '#2980b6',
+        backgroundColor: '#775839',
         paddingVertical: 15
     },
     buttonText: {
@@ -137,7 +153,7 @@ const styles = {
         fontWeight: '700'
     },
     loginButton: {
-        backgroundColor: '#2980b6',
+        backgroundColor: '#775839',
         color: '#fff'
     },
     errorTextStyle: {
@@ -151,7 +167,7 @@ const styles = {
         paddingTop: 5,
         paddingBottom: 5,
         fontSize: 14,
-        color: 'rgba(225,225,225,0.7)'
+        color: 'rgba(140,107,75,0.7)'
     }
 }
 
@@ -169,8 +185,8 @@ const mapStateToProps = ({ auth }) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginUser: (credentials, navigation) => {
-            dispatch(loginUserThunk(credentials, navigation))
+        signUpUser: (credentials, navigation) => {
+            dispatch(signUpUserThunk(credentials, navigation))
         },
         authFormUpdate: ({ prop, value }) => {
             dispatch(authFormUpdate({ prop, value }))
