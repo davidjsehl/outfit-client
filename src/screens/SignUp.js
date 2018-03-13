@@ -159,14 +159,16 @@ const styles = {
         backgroundColor: 'rgba(91, 87, 86, 0.2)',
         marginBottom: 10,
         padding: 10,
-        color: '#fff'
+        color: '#fff',
+        borderRadius: 5,
+
     },
     buttonContainer: {
         backgroundColor: '#AE7F52',
         paddingVertical: 15,
-        borderWidth: 5,
+        // borderWidth: 5,
         borderRadius: 5,
-        borderColor: 'white'
+        // borderColor: 'white'
     },
     buttonText: {
         color: '#fff',

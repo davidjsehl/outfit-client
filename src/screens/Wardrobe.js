@@ -3,8 +3,6 @@ import { View, Text, Button, TouchableOpacity, Image } from 'react-native'
 import { ImagePicker } from 'expo'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { CardSection } from './common/CardSection'
-import { Card } from './common/Card'
 import { addItemThunk } from '../reducers/item'
 import { getWardrobeThunk, getWardrobeItemsThunk } from '../reducers/wardrobe'
 import WardrobeDrawer from './screenComponents/WardrobeDrawer'
@@ -50,19 +48,15 @@ export class Wardrobe extends Component {
 
         return (
             <View style={styles.screenContainer}>
-                <View>
-                    {/* <Card> */}
-                        {/* <CardSection> */}
-                            <View>
-                                <Text style={styles.title}>Wardrobe</Text>
-                            </View>
-                            <View>
-                                <TouchableOpacity onPress={this._pickImage}>
-                                    <Image style={styles.addImageBtn} source={require('../../assets/addItem.png')} />
-                                </TouchableOpacity>
-                            </View>
-                        {/* </CardSection> */}
-                    {/* </Card> */}
+                <View style={styles.headerContainer}>
+                    <View>
+                        <Text style={styles.title}>Wardrobe</Text>
+                    </View>
+                    <View>
+                        <TouchableOpacity onPress={this._pickImage}>
+                            <Image style={styles.addImageBtn} source={require('../../assets/addItem.png')} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <View>
                     {
@@ -85,13 +79,15 @@ const styles = {
         flex: 1,
         backgroundColor: 'white',
     },
+    headerContainer: {
+        // backgroundColor: '#AE7F52',
+        marginTop: 15,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
     title: {
         fontSize: 50
-    },
-    titleContainer: {
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        flex: .75
     },
     addImageBtn: {
         height: 50,

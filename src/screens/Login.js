@@ -84,7 +84,7 @@ export class Login extends Component {
                         {this.renderButton()}
 
                         <Text style={styles.loginText}>Dont have an account?</Text>
-                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('SignUpForm')}>
+                        <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('SignUp')}>
                             <Text style={styles.buttonText}>SIGN UP</Text>
                         </TouchableOpacity>
                     </View>
