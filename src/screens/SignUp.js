@@ -60,8 +60,9 @@ export class SignUp extends Component {
             <KeyboardAvoidingView behavior="padding" style={styles.screenContainer}>
                 <View style={styles.loginContainer}>
                     <View style={styles.headerContainer}>
-                        <Text style={styles.titleText}>outfit</Text>
-                        <Text style={styles.subtitle}>the style network</Text>
+                        {/* <Text style={styles.titleText}>outfit</Text>
+                        <Text style={styles.subtitle}>the style network</Text> */}
+                        <Image style={styles.logo} source={require('../../assets/logopink.png')}/>
                     </View>
                 </View>
                 <View style={styles.formContainer}>
@@ -71,7 +72,7 @@ export class SignUp extends Component {
                             autoCorrect={false}
                             returnKeyType="next"
                             placeholder="First Name"
-                            placeholderTextColor="rgba(140,107,75,0.7)"
+                            placeholderTextColor="#fff"
                             value={this.props.firstName}
                             onChangeText={(text) => this.props.authFormUpdate({ prop: 'firstName', value: text })}
                         />
@@ -79,7 +80,7 @@ export class SignUp extends Component {
                             autoCorrect={false}
                             returnKeyType="next"
                             placeholder="Last Name"
-                            placeholderTextColor="rgba(140,107,75,0.7)"
+                            placeholderTextColor="#fff"
                             value={this.props.lastName}
                             onChangeText={(text) => this.props.authFormUpdate({ prop: 'lastName', value: text })}
                         />
@@ -87,7 +88,7 @@ export class SignUp extends Component {
                             autoCorrect={false}
                             returnKeyType="next"
                             placeholder="Email"
-                            placeholderTextColor="rgba(140,107,75,0.7)"
+                            placeholderTextColor="#fff"
                             value={this.props.email}
                             onChangeText={(text) => this.props.authFormUpdate({ prop: 'email', value: text })}
                         />
@@ -95,7 +96,7 @@ export class SignUp extends Component {
                             autoCorrect={false}
                             returnKeyType="next"
                             placeholder="Password"
-                            placeholderTextColor="rgba(140,107,75,0.7)"
+                            placeholderTextColor="#fff"
                             secureTextEntry
                             value={this.props.password}
                             onChangeText={(text) => this.props.authFormUpdate({ prop: 'password', value: text })}
@@ -117,12 +118,21 @@ export class SignUp extends Component {
 const styles = {
     screenContainer: {
         flex: 1,
-        backgroundColor: '#f4eee8',
+        backgroundColor: '#B75758',
     },
+    // loginContainer: {
+    //     alignItems: 'center',
+    //     flexGrow: 1,
+    // },
     loginContainer: {
         alignItems: 'center',
         flexGrow: 1,
-        // justifyContent: 'center'
+        justifyContent: 'center'
+    },
+    logo: {
+        position: 'absolute',
+        width: 350,
+        height: 350
     },
     headerContainer: {
         marginTop: 40,
@@ -146,23 +156,22 @@ const styles = {
     },
     input: {
         height: 40,
-        backgroundColor: 'rgba(140,107,75,0.2)',
+        backgroundColor: 'rgba(229, 195, 201, 0.2)',
         marginBottom: 10,
         padding: 10,
         color: '#fff'
     },
     buttonContainer: {
-        backgroundColor: '#775839',
-        paddingVertical: 15
+        backgroundColor: '#B75758',
+        paddingVertical: 15,
+        borderWidth: 5,
+        borderRadius: 5,
+        borderColor: 'white'
     },
     buttonText: {
         color: '#fff',
         textAlign: 'center',
         fontWeight: '700'
-    },
-    loginButton: {
-        backgroundColor: '#775839',
-        color: '#fff'
     },
     errorTextStyle: {
         color: 'red',
@@ -175,7 +184,7 @@ const styles = {
         paddingTop: 5,
         paddingBottom: 5,
         fontSize: 14,
-        color: 'rgba(140,107,75,0.7)'
+        color: 'rgba(255,255,255,0.7)'
     }
 }
 

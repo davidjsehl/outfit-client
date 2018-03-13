@@ -36,7 +36,8 @@ export const LoggedIn = TabNavigator({
     Wardrobe: {
         screen: Wardrobe,
         navigationOptions: {
-            headerLeft: null,
+            // headerLeft: null,
+            header: null,
             tabBarLabel: 'Wardrobe',
             tabBarIcon: ({ tintColor }) => {
                 <FontAwesome name="connectdevelop" size={30} color={tintColor} />
@@ -46,7 +47,7 @@ export const LoggedIn = TabNavigator({
             screen: Landing,
             navigationOptions: {
                 headerLeft: null,
-                tabBarLabel: 'Wardrobe',
+                tabBarLabel: 'Landing',
                 tabBarIcon: ({ tintColor }) => {
                     <FontAwesome name="connectdevelop" size={30} color={tintColor} />
                 }

@@ -49,10 +49,10 @@ export class Wardrobe extends Component {
         let categories = [...new Set(categoryArray)]
 
         return (
-            <View>
+            <View style={styles.screenContainer}>
                 <View>
-                    <Card>
-                        <CardSection>
+                    {/* <Card> */}
+                        {/* <CardSection> */}
                             <View>
                                 <Text style={styles.title}>Wardrobe</Text>
                             </View>
@@ -61,8 +61,8 @@ export class Wardrobe extends Component {
                                     <Image style={styles.addImageBtn} source={require('../../assets/addItem.png')} />
                                 </TouchableOpacity>
                             </View>
-                        </CardSection>
-                    </Card>
+                        {/* </CardSection> */}
+                    {/* </Card> */}
                 </View>
                 <View>
                     {
@@ -81,6 +81,10 @@ export class Wardrobe extends Component {
 }
 
 const styles = {
+    screenContainer: {
+        flex: 1,
+        backgroundColor: '#B75758',
+    },
     title: {
         fontSize: 50
     },

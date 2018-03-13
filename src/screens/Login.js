@@ -54,8 +54,8 @@ export class Login extends Component {
             <KeyboardAvoidingView behavior="padding" style={styles.screenContainer}>
 
                 <View style={styles.loginContainer}>
-                    {/* <Image style={styles.logo} source={require('../../public/logo.png')} /> */}
-
+                    <Image style={styles.logo} source={require('../../assets/logopink.png')} />
+                    {/* <Text style={styles.welcome}>Welcome Back</Text> */}
                 </View>
                 <View style={styles.formContainer}>
                     <View style={styles.container}>
@@ -66,14 +66,14 @@ export class Login extends Component {
                             keyboardType='email-address'
                             returnKeyType="next"
                             placeholder='Email'
-                            placeholderTextColor='rgba(140,107,75,0.7)'
+                            placeholderTextColor="#fff"
                             value={this.props.email}
                             onChangeText={(text) => this.props.authFormUpdate({ prop: 'email', value: text })}
                         />
 
                         <TextInput style={styles.input}
                             placeholder='Password'
-                            placeholderTextColor='rgba(140,107,75,0.7)'
+                            placeholderTextColor="#fff"
                             value={this.props.password}
                             onChangeText={(text) => this.props.authFormUpdate({ prop: 'password', value: text })}
                             secureTextEntry
@@ -83,7 +83,7 @@ export class Login extends Component {
 
                         {this.renderButton()}
 
-                        <Text style={styles.signUpText}>Dont have an account?</Text>
+                        <Text style={styles.loginText}>Dont have an account?</Text>
                         <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('SignUpForm')}>
                             <Text style={styles.buttonText}>SIGN UP</Text>
                         </TouchableOpacity>
@@ -97,18 +97,26 @@ export class Login extends Component {
 const styles = {
     screenContainer: {
         flex: 1,
-        backgroundColor: '#f4eee8',
+        backgroundColor: '#B75758',
     },
     loginContainer: {
+        display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         flexGrow: 1,
         justifyContent: 'center'
     },
     logo: {
         position: 'absolute',
-        width: 300,
-        height: 300
+        width: 350,
+        height: 350
     },
+    // welcome: {
+    //     marginTop: 200,
+    //     color: 'white', 
+    //     fontSize: 35,
+    //     position: 'absolute'
+    // },
     title: {
         color: "#FFF",
         marginTop: 120,
@@ -121,14 +129,17 @@ const styles = {
     },
     input: {
         height: 40,
-        backgroundColor: 'rgba(140,107,75,0.2)',
+        backgroundColor: 'rgba(229, 195, 201, 0.2)',
         marginBottom: 10,
         padding: 10,
         color: '#fff'
     },
     buttonContainer: {
-        backgroundColor: '#775839',
-        paddingVertical: 15
+        backgroundColor: '#B75758',
+        paddingVertical: 15,
+        borderWidth: 5,
+        borderRadius: 5,
+        borderColor: 'white'
     },
     buttonText: {
         color: '#fff',
@@ -144,13 +155,13 @@ const styles = {
         fontSize: 20,
         alignSelf: 'center'
     },
-    signUpText: {
+    loginText: {
         textAlign: 'center',
         fontWeight: 'bold',
         paddingTop: 5,
         paddingBottom: 5,
         fontSize: 14,
-        color: 'rgba(140,107,75,0.7)'
+        color: 'rgba(255,255,255,0.7)'
     }
 }
 
