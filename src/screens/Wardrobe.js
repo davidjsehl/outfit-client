@@ -83,7 +83,7 @@ export class Wardrobe extends Component {
 const styles = {
     screenContainer: {
         flex: 1,
-        backgroundColor: '#B75758',
+        backgroundColor: 'white',
     },
     title: {
         fontSize: 50

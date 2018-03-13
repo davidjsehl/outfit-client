@@ -62,7 +62,7 @@ export class SignUp extends Component {
                     <View style={styles.headerContainer}>
                         {/* <Text style={styles.titleText}>outfit</Text>
                         <Text style={styles.subtitle}>the style network</Text> */}
-                        <Image style={styles.logo} source={require('../../assets/logopink.png')}/>
+                        <Image style={styles.logo} source={require('../../assets/logonew.png')}/>
                     </View>
                 </View>
                 <View style={styles.formContainer}>
@@ -118,7 +118,7 @@ export class SignUp extends Component {
 const styles = {
     screenContainer: {
         flex: 1,
-        backgroundColor: '#B75758',
+        backgroundColor: 'white',
     },
     // loginContainer: {
     //     alignItems: 'center',
@@ -156,13 +156,13 @@ const styles = {
     },
     input: {
         height: 40,
-        backgroundColor: 'rgba(229, 195, 201, 0.2)',
+        backgroundColor: 'rgba(91, 87, 86, 0.2)',
         marginBottom: 10,
         padding: 10,
         color: '#fff'
     },
     buttonContainer: {
-        backgroundColor: '#B75758',
+        backgroundColor: '#AE7F52',
         paddingVertical: 15,
         borderWidth: 5,
         borderRadius: 5,
@@ -184,7 +184,7 @@ const styles = {
         paddingTop: 5,
         paddingBottom: 5,
         fontSize: 14,
-        color: 'rgba(255,255,255,0.7)'
+        color: 'rgba(91, 87, 86, 0.7)'
     }
 }
 

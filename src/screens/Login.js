@@ -54,7 +54,7 @@ export class Login extends Component {
             <KeyboardAvoidingView behavior="padding" style={styles.screenContainer}>
 
                 <View style={styles.loginContainer}>
-                    <Image style={styles.logo} source={require('../../assets/logopink.png')} />
+                    <Image style={styles.logo} source={require('../../assets/logonew.png')} />
                     {/* <Text style={styles.welcome}>Welcome Back</Text> */}
                 </View>
                 <View style={styles.formContainer}>
@@ -97,7 +97,7 @@ export class Login extends Component {
 const styles = {
     screenContainer: {
         flex: 1,
-        backgroundColor: '#B75758',
+        backgroundColor: 'white',
     },
     loginContainer: {
         display: 'flex',
@@ -129,13 +129,13 @@ const styles = {
     },
     input: {
         height: 40,
-        backgroundColor: 'rgba(229, 195, 201, 0.2)',
+        backgroundColor: 'rgba(91, 87, 86, 0.2)',
         marginBottom: 10,
         padding: 10,
         color: '#fff'
     },
     buttonContainer: {
-        backgroundColor: '#B75758',
+        backgroundColor: '#AE7F52',
         paddingVertical: 15,
         borderWidth: 5,
         borderRadius: 5,
@@ -161,7 +161,7 @@ const styles = {
         paddingTop: 5,
         paddingBottom: 5,
         fontSize: 14,
-        color: 'rgba(255,255,255,0.7)'
+        color: 'rgba(91, 87, 86, 0.7)'
     }
 }
 
